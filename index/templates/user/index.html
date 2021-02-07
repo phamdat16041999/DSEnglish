@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<title></title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<style>
+		body {font-family: Arial, Helvetica, sans-serif;}
+
+		/* The Modal (background) */
+		.modal {
+			position: fixed; /* Stay in place */
+			z-index: 1; /* Sit on top */
+			padding-top: 230px; /* Location of the box */
+			left: 0;
+			top: 0;
+			width: 100%; /* Full width */
+			height: 100%; /* Full height */
+			overflow: auto; /* Enable scroll if needed */
+			background-color: rgb(0,0,0); /* Fallback color */
+			background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		}
+
+		/* Modal Content */
+		.modal-content {
+			background-color: #fefefe;
+			margin: auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 30%;
+		}
+		@media only screen and (max-width: 1300px) {
+			.modal-content {
+				width: 70%;
+			}
+		}
+
+		/* The Close Button */
+		.close {
+			color: #aaaaaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: #000;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+
+	{% include "user/toolbar.html" %}
+	<div class="container-xl">
+		<div class="row">
+			<div class="col-12">
+				<div id="new_word_headings" style="color: #2980b9;">
+					Google Chrome extension
+				</div>
+				<div>
+					<p id="description">Vocabulary added from the Google Chrome extension</p>
+				</div>
+			</div>
+			<div class="row" style="width: 100%;">
+				<div class="col-12">
+					<div class="center">
+						<p class="new_word">{{categoryContentExteition.Name}}</p>
+						<p class="mean">{{categoryContentExteition.Description}}</p>
+						<div class="function" style="float: right;">
+							<i class="fa fa-edit" style="font-size:32px; margin-top: 11px;"></i>
+						</div>
+						<div class="function" style="float: right;">
+							<i class="fa fa-trash" style="font-size:32px; margin-top: 9px;"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 2................. -->
+			<div class="col-12">
+				<div id="new_word_headings" style="color: #e67e22;">
+					Category
+				</div>
+				<div>
+					<p id="description">Vocabulary by topic created by you</p>
+				</div>
+			</div>
+			<div class="row" style="width: 100%;" id="Category">
+				{% for i in categoryContent %}
+				<div class="col-12" id="{{i.id}}">
+					<div class="center">
+						<p class="new_word"><a href="\chooseGame\{{i.id}}" title="" id="name{{i.id}}">{{i.Name}}</a></p>
+						<p class="mean" id="description{{i.id}}">{{i.Description}}</p>
+						<div class="function" style="float: right;">
+							<i class="fa fa-edit" style="font-size:32px; margin-top: 11px;" onclick="showPopupEdit({{i.id}})"></i>
+						</div>
+						<div class="function" style="float: right;">
+							<i class="fa fa-trash" style="font-size:32px; margin-top: 9px;" onclick="showPopup({{i.id}})"></i>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	<div id="createPopup">
+
+
+	</div>
+	<div id="pupupUpdate" class="modal">
+		<div class="modal-content">
+			<span onclick="nonePopup()" style="width: 100%; text-align: right;cursor: pointer;" class="close">&times;</span>
+			<h5 style="width: 100%; text-align: center;">Updated English topic</h5>
+			<label>Name</label>
+			<input type="text" class="form-control" id="inputName">
+			<label>Description</label>
+			<input type="text" class="form-control" id="inputDescription">
+			<br>
+			<div style="width: 100%; text-align: right;" id="buttonConfirm">
+				<div id='removeConfirm'>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+// Get the modal
+function showPopup(id){
+	var text1 = "<div id='myModal' class='modal' style='display: block;'><div class='modal-content'><span class='close' onclick='hidePopup()' style='text-align: right;'>&times;</span><h5>Do you want to delete this tag !</h5><br><hr style = 'width:100%; height:1px; background-color:gray; color:gray; border-radius:10px;'><br><div style='width: 100%; text-align: right;'><button type='button' class='btn btn-danger' style='width: 70px;margin-right: 10px;' onclick='deleteTag("+id+")'>Yes</button><button type='button' class='btn' style='width: 70px;border-color: gray;' onclick='hidePopup()'>No</button></div></div></div>";
+
+	$("#createPopup").append(text1);
+}
+function hidePopup(){
+	$("#myModal").remove();
+}
+function deleteTag(id){
+	$("#"+id+"").remove();
+	var xhttp;
+	if (id == "") {
+		document.getElementById("Category").innerHTML = "";
+		return;
+	}
+	xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			document.getElementById("Category").innerHTML = this.responseText;
+		}
+	};
+	xhttp.open("GET", "/deleteCategory/"+id, true);
+	xhttp.send();
+	$("#myModal").remove();
+}
+</script>
+<!-- Update Category -->
+<script>
+	function showPopupEdit(id)
+	{
+		$("#removeConfirm").remove();
+		document.getElementById("pupupUpdate").style.display = "block";
+		var Name = document.getElementById("name"+id).innerHTML;
+		var Description = document.getElementById("description"+id).innerHTML;
+		$("#inputName").val(Name);
+		$("#inputDescription").val(Description);
+		var text = "<div id='removeConfirm'><button type='button' class='btn btn-danger' style='width: 100px; margin-right: 10px;' id="+id+" onclick='update(this.id)'>Update</button><button type='button' class='btn btn-light' style='border-color: #bdc3c7;width: 100px;' id = 'closePopup1' onclick='nonePopup()'>Cancel</button></div>"
+		$("#buttonConfirm").append(text);
+
+	}
+	function nonePopup()
+	{
+		document.getElementById("pupupUpdate").style.display = "none";
+	}
+	function update(id)
+	{
+		var Name = document.getElementById("inputName").value;
+		var Description = document.getElementById("inputDescription").value;
+		document.getElementById("name"+id).innerHTML = Name;
+		document.getElementById("description"+id).innerHTML = Description;
+		document.getElementById("pupupUpdate").style.display = "none";
+		ajaxUpdateCategory(id, Name, Description)
+	}
+	function ajaxUpdateCategory(id, Name, Description)
+	{
+		var xhttp;
+		if (id == "") {
+			document.getElementById("Category").innerHTML = "";
+			return;
+		}
+		xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				
+			}
+		};
+		var Name = document.getElementById("inputName").value;
+		var Description = document.getElementById("inputDescription").value;
+		console.log(Name);
+		xhttp.open("GET", "/updateCategory/"+id+"/"+Name+"/"+Description, true);
+		xhttp.send();
+		$("#myModal").remove();
+	}
+</script>
+</body>
+</html>

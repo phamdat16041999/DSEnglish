@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<title></title>
+	<meta charset ="utf-8" />
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-xl">
+			<a class="navbar-brand" href="\" style="width: 5%;"><img src="{% static 'image/logo1.jpg' %}" alt="" style="width: 100%; height: auto; border-radius: 5px;"></a>
+			<a class="navbar-brand" href="\">DSEnglish</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav" style="width: 80%;">
+					<a class="nav-item nav-link" href="#">Overview</a>
+					<a class="nav-item nav-link" href="#">Document</a>
+					<a class="nav-item nav-link" href="#">About us</a>
+				</div>
+				<div class="navbar-nav" style="width: 20%;">
+					<a class="nav-item nav-link" href="\login">Login</a>
+					<a class="nav-item nav-link" href="\createAccount">Sign up</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+</body>
+</html>

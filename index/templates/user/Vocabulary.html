@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	{% load static %}
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<style>
+		body {font-family: Arial, Helvetica, sans-serif;}
+
+		/* The Modal (background) */
+		.modal {
+			position: fixed; /* Stay in place */
+			z-index: 1; /* Sit on top */
+			padding-top: 230px; /* Location of the box */
+			left: 0;
+			top: 0;
+			width: 100%; /* Full width */
+			height: 100%; /* Full height */
+			overflow: auto; /* Enable scroll if needed */
+			background-color: rgb(0,0,0); /* Fallback color */
+			background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		}
+
+		/* Modal Content */
+		.modal-content {
+			background-color: #fefefe;
+			margin: auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 30%;
+		}
+
+		/* The Close Button */
+		.close {
+			color: #aaaaaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: #000;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+
+</head>
+<body>
+	<div class="container-xl">
+		<div class="row" style="margin-bottom: 40px;">
+			<div class="col-4">
+				<h3>Learn</h3>
+				<div class="row">
+					<div class="col-12">
+						<button type="button" class="button_learn btn btn-light"><img src="{% static 'image/Memory card.png' %}" alt="" style="width: 35px; height: auto;" onclick="flipCard({{CategoryID}})"><span> Flip card</span></button>
+					</div>
+					<div class="col-12">
+						<button type="button" class="button_learn btn btn-light" onclick="learn({{CategoryID}})"><span class="fa fa-book" style="font-size: 26px; color: #2980b9;margin-left: 7px;"></span><span> Learn</span></button>
+					</div>
+					<div class="col-12">
+						<button type="button" class="button_learn btn btn-light" onclick="writeGame({{CategoryID}})"><span class="fa fa-pencil" style="font-size: 26px; color: #2980b9;margin-left: 7px;"></span><span> Write</span></button>
+					</div>
+				</div>
+				<h3>Game</h3>
+				<div class="row">
+					<div class="col-12">
+						<button type="button" class="button_learn btn btn-light" onclick="nemoryCard({{CategoryID}})"><img src="{% static 'image/flip card.png' %}" alt="" style="width: 35px; height: auto;"><span> Memory card</span></button>
+					</div>
+				</div>
+			</div>
+			<div class="col-8">
+				<img src="{% static 'image/logo.jpg' %}" alt="" style="width: 100%; height: auto; border-radius: 10px;">
+			</div>
+		</div>
+		<hr style="width: 100%;">
+		<div class="row" style="margin-bottom: 40px;">
+			<div class="col-12" id="notYetLearned" style="display: none;">
+				<div id="new_word_headings" style="color: #2980b9;float: left;width: 50%;">
+					Not yet learned
+				</div>
+				<div style="width: 50%; float: left; margin-top: 10px; text-align: right;">
+					<input type="checkbox" class="new_word_markup" style="position: unset;" onclick="tickAllNotYetLearn()" id="tickAllNotYetLearn">
+					<span>Choose all</span>
+				</div>
+				<div style="width: 100%; float: left;">
+					<p id="description">You haven't learned this term yet</p>
+				</div>
+			</div>
+			{% for i in newWord %}
+			{% if i.Mark == 0 %}
+			<div class="col-12 tags" id="{{i.id}}">
+				<div class="center">
+					<p class="new_word" id="Term{{i.id}}">{{i.Term}}</p>
+					<p class="mean" id="Definition{{i.id}}">{{i.Definition}}</p>
+					<div class="function">
+						<input type="checkbox" class="new_word_markup not_yet_learned" onclick="tick({{i.id}})" id="tick{{i.id}}">
+					</div>
+					<div class="function">
+						<i class="fa fa-edit" style="font-size:32px; margin-top: 11px;" onclick="updateVocabulary({{i.id}})"></i>
+					</div>
+					<div class="function">
+						<i class="fa fa-trash" style="font-size:32px; margin-top: 9px;" onclick="showPopupDelete({{i.id}})"></i>
+					</div>
+				</div>
+			</div>
+			<script>
+				$(document).ready(function(){
+					$("#notYetLearned").css("display", "block");
+				});
+				{% if i.Tick == True %}
+				document.getElementById("tick{{i.id}}").checked = true;
+				{% endif %}
+				{% if i.Tick == False %}
+				document.getElementById("tick{{i.id}}").checked = false;
+				{% endif %}
+			</script>
+			{% endif %}
+			{% endfor %}
+			<!-- 2................. -->
+			<div class="col-12" style="display: none;" id="studying">
+				<div id="new_word_headings" style="color: #e67e22;float: left;width: 50%;">
+					Studying...
+				</div>
+				<div style="width: 50%; float: left; margin-top: 10px; text-align: right;">
+					<input type="checkbox" class="new_word_markup" style="position: unset;" onclick="tickStudying()" id="tickStudying">
+					<span>Choose all</span>
+				</div>
+				<div style="float: left; width: 100%;">
+					<p id="description">You have already started to learn these terms. Continue to promote offline!</p>
+				</div>
+			</div>
+			{% for i in newWord %}
+			{% if i.Mark > 0 and i.Mark <= 4%}
+			<div class="col-12 tags" id="{{i.id}}">
+				<div class="center">
+					<p class="new_word" id="Term{{i.id}}">{{i.Term}}</p>
+					<p class="mean" id="Definition{{i.id}}">{{i.Definition}}</p>
+					<div class="function">
+						<input type="checkbox" class="new_word_markup studying" onclick="tick({{i.id}})" id="tick{{i.id}}">
+					</div>
+					<div class="function">
+						<i class="fa fa-edit" style="font-size:32px; margin-top: 11px;" onclick="updateVocabulary({{i.id}})"></i>
+					</div>
+					<div class="function">
+						<i class="fa fa-trash" style="font-size:32px; margin-top: 9px;" onclick="showPopupDelete({{i.id}})"></i>
+					</div>
+				</div>
+			</div>
+			<script>
+				$(document).ready(function(){
+					$("#studying").css("display", "block");
+				});
+				{% if i.Tick == True %}
+				document.getElementById("tick{{i.id}}").checked = true;
+				{% endif %}
+				{% if i.Tick == False %}
+				document.getElementById("tick{{i.id}}").checked = false;
+				{% endif %}
+			</script>
+			{% endif %}
+			{% endfor %}
+			<!-- 3.................... -->
+			<div class="col-12" id="competently" style="display: none;">
+				<div id="new_word_headings" style="color: #2ecc71;float: left;width: 50%;">
+					Competently
+				</div>
+				<div style="width: 50%; float: left; margin-top: 10px; text-align: right;">
+					<input type="checkbox" class="new_word_markup" style="position: unset;" onclick="tickCompetently()" id="tickCompetently">
+					<span>Choose all</span>
+				</div>
+				<div style="float: left; width: 100%;">
+					<p id="description">You have memorized these new words</p>
+				</div>
+			</div>
+			{% for i in newWord %}
+			{% if i.Mark > 4 and i.Mark <= 6 %}
+			<script>
+			</script>
+			<div class="col-12 tags" id="{{i.id}}">
+				<div class="center">
+					<p class="new_word" id="Term{{i.id}}">{{i.Term}}</p>
+					<p class="mean" id="Definition{{i.id}}">{{i.Definition}}</p>
+					<div class="function">
+						<input type="checkbox" class="new_word_markup competently" onclick="tick({{i.id}})" id="tick{{i.id}}">
+					</div>
+					<div class="function">
+						<i class="fa fa-edit" style="font-size:32px; margin-top: 11px;" onclick="updateVocabulary({{i.id}})"></i>
+					</div>
+					<div class="function">
+						<i class="fa fa-trash" style="font-size:32px; margin-top: 9px;" onclick="showPopupDelete({{i.id}})"></i>
+					</div>
+				</div>
+			</div>
+			<script>
+				$(document).ready(function(){
+					$("#competently").css("display", "block");
+				});
+				{% if i.Tick == True %}
+				document.getElementById("tick{{i.id}}").checked = true;
+				{% endif %}
+				{% if i.Tick == False %}
+				document.getElementById("tick{{i.id}}").checked = false;
+				{% endif %}
+			</script>
+			{% endif %}
+			{% endfor %}
+
+		</div>
+	</div>
+	<div id="createPopup">
+
+
+	</div>
+	<div id="pupupUpdate" class="modal">
+		<div class="modal-content">
+			<span onclick="nonePopup()" style="width: 100%; text-align: right;cursor: pointer;" class="close">&times;</span>
+			<h5 style="width: 100%; text-align: center;">Updated English topic</h5>
+			<label>Name</label>
+			<input type="text" class="form-control" id="inputName">
+			<label>Description</label>
+			<input type="text" class="form-control" id="inputDescription">
+			<br>
+			<div style="width: 100%; text-align: right;" id="buttonConfirm">
+				<div id='removeConfirm'>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		/*function deleteVocabulary(id){
+			numberTags = document.getElementsByClassName("tags");
+			if(numberTags.length > 4)
+			{
+				$(document).ready(function(){
+					$("#"+id).remove();
+				});
+				var xhttp;
+				if (id == "") {
+					document.getElementById("Category").innerHTML = "";
+					return;
+				}
+				xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+
+					}
+				};
+				xhttp.open("GET", "/deleteVocabulary/"+id, true);
+				xhttp.send();
+			}
+			if(numberTags.length < 4)
+			{
+				alert("Sorry, the minimum value of the cards is four. You cannot delete this tag");
+			}
+
+		}*/
+		function tick(id){
+			var xhttp;
+			if (id == "") {
+				document.getElementById("Category").innerHTML = "";
+				return;
+			}
+			xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+
+				}
+			};
+			xhttp.open("GET", "/tickNewWord/"+id, true);
+			xhttp.send();
+			/*checkTickAllNotLearn();*/
+		}
+		function learn(CategoryID){
+			location.href = "/learn/"+CategoryID;
+		}
+		function writeGame(CategoryID){
+			location.href = "/write/"+CategoryID;
+		}
+		function flipCard(CategoryID){
+			location.href = "/flipCard/"+CategoryID;
+		}
+		function nemoryCard(CategoryID){
+			location.href = "/memoryCard/"+CategoryID;
+		}
+	</script>
+	<script>
+// Get the modal
+function showPopupDelete(id){
+	var text1 = "<div id='myModal' class='modal' style='display: block;'><div class='modal-content'><span class='close' onclick='hidePopup()' style='text-align: right;'>&times;</span><h5 id='notification'>Do you want to delete this tag !</h5><br><hr style = 'width:100%; height:1px; background-color:gray; color:gray; border-radius:10px;'><br><div style='width: 100%; text-align: right;'><button type='button' class='btn btn-danger' style='width: 70px;margin-right: 10px;' onclick='deleteTag("+id+")'>Yes</button><button type='button' class='btn' style='width: 70px;border-color: gray;' onclick='hidePopup()'>No</button></div></div></div>";
+
+	$("#createPopup").append(text1);
+}
+function hidePopup(){
+	$("#myModal").remove();
+}
+function deleteTag(id){
+	numberTags = document.getElementsByClassName("tags");
+	if(numberTags.length > 4)
+	{
+		$(document).ready(function(){
+			$("#"+id).remove();
+		});
+		var xhttp;
+		if (id == "") {
+			document.getElementById("Category").innerHTML = "";
+			return;
+		}
+		xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+
+			}
+		};
+		xhttp.open("GET", "/deleteVocabulary/"+id, true);
+		xhttp.send();
+	}
+	if(numberTags.length <= 4)
+	{
+		console.log("aaaaaaaaaaa");
+		alert("Sorry, the minimum value of the cards is four. You cannot delete this tag");
+	}
+	$("#myModal").remove();
+}
+
+/*Popup update*/
+function updateVocabulary(id)
+{
+	$("#removeConfirm").remove();
+	document.getElementById("pupupUpdate").style.display = "block";
+	var Term = document.getElementById("Term"+id).innerHTML;
+	var Definition = document.getElementById("Definition"+id).innerHTML;
+	$("#inputName").val(Term);
+	$("#inputDescription").val(Definition);
+	var text = "<div id='removeConfirm'><button type='button' class='btn btn-danger' style='width: 100px; margin-right: 10px;' id="+id+" onclick='update(this.id)'>Update</button><button type='button' class='btn btn-light' style='border-color: #bdc3c7;width: 100px;' id = 'closePopup1' onclick='nonePopup()'>Cancel</button></div>"
+	$("#buttonConfirm").append(text);
+}
+function nonePopup()
+{
+	document.getElementById("pupupUpdate").style.display = "none";
+}
+function update(id)
+{
+	var Term = document.getElementById("inputName").value;
+	var Definition = document.getElementById("inputDescription").value;
+	document.getElementById("Term"+id).innerHTML = Term;
+	document.getElementById("Definition"+id).innerHTML = Definition;
+	document.getElementById("pupupUpdate").style.display = "none";
+	ajaxUpdateVocabulary(id, Term, Definition)
+}
+function ajaxUpdateVocabulary(id, Term, Definition)
+{
+	var xhttp;
+	if (id == "") {
+		document.getElementById("Category").innerHTML = "";
+		return;
+	}
+	xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+
+		}
+	};
+	xhttp.open("GET", "/updateVocabulary/"+id+"/"+Term+"/"+Definition, true);
+	xhttp.send();
+	$("#myModal").remove();
+}
+/*function tick all*/
+function tickAllNotYetLearn(){
+	var not_yet_learned = document.getElementsByClassName("not_yet_learned").length;
+	for (var i = 0; i < not_yet_learned; i++) {
+		if(document.getElementById("tickAllNotYetLearn").checked == true)
+		{
+			if(document.getElementsByClassName("not_yet_learned")[i].checked == false)
+			{
+				document.getElementsByClassName("not_yet_learned")[i].checked = true;
+				id = document.getElementsByClassName("not_yet_learned")[i].id;
+				var id = id.match(/\d/g);
+				id = id.join("");
+				tick(id);
+			}
+		}
+		if(document.getElementById("tickAllNotYetLearn").checked == false)
+		{
+			if(document.getElementsByClassName("not_yet_learned")[i].checked == true)
+			{
+				document.getElementsByClassName("not_yet_learned")[i].checked = false;
+				id = document.getElementsByClassName("not_yet_learned")[i].id;
+				var id = id.match(/\d/g);
+				id = id.join("");
+				tick(id);
+			}
+		}
+	}
+}
+checkTickAllNotLearn();
+function checkTickAllNotLearn(){
+	var not_yet_learned = document.getElementsByClassName("not_yet_learned").length;
+	var number_tick = 0;
+	for (var i = 0; i < not_yet_learned; i++) {
+		if(document.getElementsByClassName("not_yet_learned")[i].checked == true)
+		{
+			number_tick ++;
+		}
+	}
+	if(number_tick < not_yet_learned)
+	{
+		document.getElementById("tickAllNotYetLearn").checked = false;
+	}
+	if(number_tick == not_yet_learned)
+	{
+		document.getElementById("tickAllNotYetLearn").checked = true;
+	}
+}
+
+function tickStudying(){
+	var studying = document.getElementsByClassName("studying").length;
+	for (var i = 0; i < studying; i++) {
+		if(document.getElementById("tickStudying").checked == true)
+		{
+			if(document.getElementsByClassName("studying")[i].checked == false)
+			{
+				document.getElementsByClassName("studying")[i].checked = true;
+				id = document.getElementsByClassName("studying")[i].id;
+				var id = id.match(/\d/g);
+				id = id.join("");
+				tick(id);
+			}
+		}
+		if(document.getElementById("tickStudying").checked == false)
+		{
+			if(document.getElementsByClassName("studying")[i].checked == true)
+			{
+				document.getElementsByClassName("studying")[i].checked = false;
+				id = document.getElementsByClassName("studying")[i].id;
+				var id = id.match(/\d/g);
+				id = id.join("");
+				tick(id);
+			}
+		}
+	}
+}
+checkStudying();
+function checkStudying(){
+	var studying = document.getElementsByClassName("studying").length;
+	var number_tick = 0;
+	for (var i = 0; i < studying; i++) {
+		if(document.getElementsByClassName("studying")[i].checked == true)
+		{
+			number_tick ++;
+		}
+	}
+	if(number_tick < studying)
+	{
+		document.getElementById("tickStudying").checked = false;
+	}
+	if(number_tick == studying)
+	{
+		document.getElementById("tickStudying").checked = true;
+	}
+}
+
+
+function tickCompetently(){
+	var competently = document.getElementsByClassName("competently").length;
+	for (var i = 0; i < competently; i++) {
+		if(document.getElementById("tickCompetently").checked == true)
+		{
+			if(document.getElementsByClassName("competently")[i].checked == false)
+			{
+				document.getElementsByClassName("competently")[i].checked = true;
+				id = document.getElementsByClassName("competently")[i].id;
+				var id = id.match(/\d/g);
+				id = id.join("");
+				tick(id);
+			}
+		}
+		if(document.getElementById("tickCompetently").checked == false)
+		{
+			if(document.getElementsByClassName("competently")[i].checked == true)
+			{
+				document.getElementsByClassName("competently")[i].checked = false;
+				id = document.getElementsByClassName("competently")[i].id;
+				var id = id.match(/\d/g);
+				id = id.join("");
+				tick(id);
+			}
+		}
+	}
+}
+checkCompetently();
+function checkCompetently(){
+	var competently = document.getElementsByClassName("competently").length;
+	var number_tick = 0;
+	for (var i = 0; i < competently; i++) {
+		if(document.getElementsByClassName("competently")[i].checked == true)
+		{
+			number_tick ++;
+		}
+	}
+	if(number_tick < competently)
+	{
+		document.getElementById("tickCompetently").checked = false;
+	}
+	if(number_tick == competently)
+	{
+		document.getElementById("tickCompetently").checked = true;
+	}
+}
+</script>
+</body>
+</html>
