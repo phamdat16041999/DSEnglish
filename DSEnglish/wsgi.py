@@ -1,5 +1,5 @@
 """
-WSGI config for DSEnglish project.
+WSGI config for dsenglish project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DSEnglish.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dsenglish.settings')
 
 application = get_wsgi_application()
