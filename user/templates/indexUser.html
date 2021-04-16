@@ -3,17 +3,6 @@
 <head>
 	{% load static %}
 	<title></title>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-	<!-- Popper JS -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 	<style>
@@ -61,6 +50,20 @@
 			text-decoration: none;
 			cursor: pointer;
 		}
+		.center{
+
+			line-height: 42px;
+			margin-top: 5px;
+			margin-bottom: 5px;
+		}
+		body{
+			background-color: #ecf0f1 !important;
+		}
+		.box_shadow{
+			background-color: white;
+			box-shadow: 0px 4px 10px #bdc3c7;
+			border-radius: 4px;
+		}
 	</style>
 </head>
 <body>
@@ -76,21 +79,33 @@
 					<p id="description">Vocabulary added from the Google Chrome extension</p>
 				</div>
 			</div>
-			<div class="row" style="width: 100%;">
-				<div class="col-12">
-					<div class="center">
-						<p class="new_word"><a href="/user/chooseGame/{{categoryContentExteition.id}}" title="" id="name{{i.id}}">{{categoryContentExteition.Name}}</a></p>
-						<p class="mean">{{categoryContentExteition.Description}}</p>
-						<div class="function" style="float: right;">
-							<i class="fa fa-edit" style="font-size:32px; margin-top: 11px;"></i>
+			<div class="col-12">
+				<div class="row box_shadow">
+					<div class="col-sm-10 col-12 order-sm-1 order-2">
+						<div class="row">
+							<div class="col-sm-4 col-12 center">
+								<a href="/user/chooseGame/{{categoryContentExteition.id}}" title="" id="name{{i.id}}">{{categoryContentExteition.Name}}</a>
+							</div>
+							<div class="col-sm-8 col-12 center">
+								{{categoryContentExteition.Description}}
+							</div>
 						</div>
-						<div class="function" style="float: right;">
-							<i class="fa fa-trash" style="font-size:32px; margin-top: 9px;"></i>
+					</div>
+					<div class="col-sm-2 col-12 order-sm-2 order-1">
+						<div class="row">
+							<div class="col-sm-12 col-8">
+								
+							</div>
+							<div class="col-sm-6 col-2">
+								<i class="fa fa-edit center" style="font-size:32px;"></i>
+							</div>
+							<div class="col-sm-6 col-2">
+								<i class="fa fa-trash center" style="font-size:32px;"></i>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- 2................. -->
 			<div class="col-12">
 				<div id="new_word_headings" style="color: #e67e22;">
 					Category
@@ -99,17 +114,28 @@
 					<p id="description">Vocabulary by topic created by you</p>
 				</div>
 			</div>
-			<div class="row" style="width: 100%;" id="Category">
+			<div class="col-12">
 				{% for i in categoryContent %}
-				<div class="col-12" id="{{i.id}}">
-					<div class="center">
-						<p class="new_word"><a href="/user/chooseGame/{{i.id}}" title="" id="name{{i.id}}">{{i.Name}}</a></p>
-						<p class="mean" id="description{{i.id}}">{{i.Description}}</p>
-						<div class="function" style="float: right;">
-							<i class="fa fa-edit" style="font-size:32px; margin-top: 11px;" onclick="showPopupEdit({{i.id}})"></i>
+				<div class="row box_shadow" id="{{i.id}}">
+					<div class="col-sm-10 col-12 order-sm-1 order-2">
+						<div class="row">
+							<div class="col-sm-4 col-12 center">
+								<a href="/user/chooseGame/{{i.id}}" title="" id="name{{i.id}}">{{i.Name}}</a>
+							</div>
+							<div class="col-sm-8 col-12 center" id="description{{i.id}}">{{i.Description}}</div>
 						</div>
-						<div class="function" style="float: right;">
-							<i class="fa fa-trash" style="font-size:32px; margin-top: 9px;" onclick="showPopup({{i.id}})"></i>
+					</div>
+					<div class="col-sm-2 col-12 order-sm-2 order-1">
+						<div class="row">
+							<div class="col-sm-12 col-8">
+
+							</div>
+							<div class="col-sm-6 col-2">
+								<i class="fa fa-edit" style="font-size:32px; margin-top: 11px;" onclick="showPopupEdit('{{i.id}}')"></i>
+							</div>
+							<div class="col-sm-6 col-2">
+								<i class="fa fa-trash" style="font-size:32px; margin-top: 9px;" onclick="showPopup('{{i.id}}')"></i>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -157,7 +183,10 @@ function deleteTag(id){
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			document.getElementById("Category").innerHTML = this.responseText;
+			if(this.responseText == "Deleted successfully")
+			{
+				alert("Deleted successfully");
+			}
 		}
 	};
 	xhttp.open("GET", "/user/deleteCategory/"+id, true);
@@ -213,5 +242,8 @@ function deleteTag(id){
 		$("#myModal").remove();
 	}
 </script>
+<div style="width: 100%; margin-top: 400px;">
+	{% include "footer.html" %}
+</div>
 </body>
 </html>

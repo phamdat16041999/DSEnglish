@@ -3,22 +3,11 @@
 <head>
 	<title></title>
 	{% load static %}
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-	<!-- Popper JS -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 	<style>
-		body {font-family: Arial, Helvetica, sans-serif;}
+		/*body {font-family: Arial, Helvetica, sans-serif;}*/
 
 		/* The Modal (background) */
 		.modal {
@@ -42,7 +31,16 @@
 			border: 1px solid #888;
 			width: 30%;
 		}
-
+		@media only screen and (max-width: 600px) {
+			.modal-content {
+				width: 100%;
+			}
+		}
+		@media only screen and (max-width: 1024px) {
+			.modal-content {
+				width: 80%;
+			}
+		}
 		/* The Close Button */
 		.close {
 			color: #aaaaaa;
@@ -61,9 +59,10 @@
 
 </head>
 <body>
-	<div class="container-xl">
+	{% include "toolbarUser.html" %}
+	<div class="container-xl" style="margin-top: 20px;">
 		<div class="row" style="margin-bottom: 40px;">
-			<div class="col-4">
+			<div class="col-sm-4 col-12 order-sm-1 order-2">
 				<h3>Learn</h3>
 				<div class="row">
 					<div class="col-12">
@@ -86,7 +85,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-8">
+			<div class="col-sm-8 col-12 order-sm-2 order-1">
 				<img src="{% static 'image/logo.jpg' %}" alt="" style="width: 100%; height: auto; border-radius: 10px;">
 			</div>
 		</div>
@@ -106,8 +105,8 @@
 			</div>
 			{% for i in newWord %}
 			{% if i.Mark == 0 %}
-			<div class="col-12 tags" id="{{i.id}}">
-				<div class="center">
+			<div class="col-12" id="{{i.id}}">
+<!-- 				<div class="center">
 					<p class="new_word" id="Term{{i.id}}">{{i.Term}}</p>
 					<p class="mean" id="Definition{{i.id}}">{{i.Definition}}</p>
 					<div class="function">
@@ -121,6 +120,33 @@
 					</div>
 					<div class="function">
 						<i class="fa fa-trash" style="font-size:32px; margin-top: 9px;" onclick="showPopupDelete({{i.id}})"></i>
+					</div>
+				</div> -->
+				<div class="row box_shadow">
+					<div class="col-sm-8 col-12 order-sm-1 order-2">
+						<div class="row">
+							<div class="col-sm-4 col-12 center" id="Term{{i.id}}">{{i.Term}}</div>
+							<div class="col-sm-8 col-12 center" id="Definition{{i.id}}">{{i.Definition}}</div>
+						</div>
+					</div>
+					<div class="col-sm-4 col-12 order-sm-2 order-1">
+						<div class="row">
+							<div class="col-sm-12 col-4">
+								
+							</div>
+							<div class="col-sm-3 col-2">
+								<img class="center" src="{% static 'image/Listent.png' %}" alt="" onclick="speak('{{i.id}}')" style="cursor: pointer;">
+							</div>
+							<div class="col-sm-3 col-2">
+								<input type="checkbox" class="new_word_markup not_yet_learned center" onclick="tick('{{i.id}}')" id="tick{{i.id}}">
+							</div>
+							<div class="col-sm-3 col-2">
+								<i class="fa fa-edit center" style="font-size:32px;" onclick="updateVocabulary('{{i.id}}')"></i>
+							</div>
+							<div class="col-sm-3 col-2 center">
+								<i class="fa fa-trash" style="font-size:32px;" onclick="showPopupDelete('{{i.id}}')"></i>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -153,20 +179,31 @@
 			{% for i in newWord %}
 			{% if i.Mark > 0 and i.Mark <= 4%}
 			<div class="col-12 tags" id="{{i.id}}">
-				<div class="center">
-					<p class="new_word" id="Term{{i.id}}">{{i.Term}}</p>
-					<p class="mean" id="Definition{{i.id}}">{{i.Definition}}</p>
-					<div class="function">
-						<img src="{% static 'image/Listent.png' %}" alt="" onclick="speak({{i.id}})" style="cursor: pointer;">
+				<div class="row box_shadow">
+					<div class="col-sm-8 col-12 order-sm-1 order-2">
+						<div class="row">
+							<div class="col-sm-4 col-12 center" id="Term{{i.id}}">{{i.Term}}</div>
+							<div class="col-sm-8 col-12 center" id="Definition{{i.id}}">{{i.Definition}}</div>
+						</div>
 					</div>
-					<div class="function">
-						<input type="checkbox" class="new_word_markup studying" onclick="tick({{i.id}})" id="tick{{i.id}}">
-					</div>
-					<div class="function">
-						<i class="fa fa-edit" style="font-size:32px; margin-top: 11px;" onclick="updateVocabulary({{i.id}})"></i>
-					</div>
-					<div class="function">
-						<i class="fa fa-trash" style="font-size:32px; margin-top: 9px;" onclick="showPopupDelete({{i.id}})"></i>
+					<div class="col-sm-4 col-12 order-sm-2 order-1">
+						<div class="row">
+							<div class="col-sm-12 col-4">
+								
+							</div>
+							<div class="col-sm-3 col-2">
+								<img class="center" src="{% static 'image/Listent.png' %}" alt="" onclick="speak('{{i.id}}')" style="cursor: pointer;">
+							</div>
+							<div class="col-sm-3 col-2">
+								<input type="checkbox" class="new_word_markup not_yet_learned center" onclick="tick('{{i.id}}')" id="tick{{i.id}}">
+							</div>
+							<div class="col-sm-3 col-2">
+								<i class="fa fa-edit center" style="font-size:32px;" onclick="updateVocabulary('{{i.id}}')"></i>
+							</div>
+							<div class="col-sm-3 col-2 center">
+								<i class="fa fa-trash" style="font-size:32px;" onclick="showPopupDelete('{{i.id}}')"></i>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -201,20 +238,31 @@
 			<script>
 			</script>
 			<div class="col-12 tags" id="{{i.id}}">
-				<div class="center">
-					<p class="new_word" id="Term{{i.id}}">{{i.Term}}</p>
-					<p class="mean" id="Definition{{i.id}}">{{i.Definition}}</p>
-					<div class="function">
-						<img src="{% static 'image/Listent.png' %}" alt="" onclick="speak({{i.id}})" style="cursor: pointer;">
+				<div class="row box_shadow">
+					<div class="col-sm-8 col-12 order-sm-1 order-2">
+						<div class="row">
+							<div class="col-sm-4 col-12 center" id="Term{{i.id}}">{{i.Term}}</div>
+							<div class="col-sm-8 col-12 center" id="Definition{{i.id}}">{{i.Definition}}</div>
+						</div>
 					</div>
-					<div class="function">
-						<input type="checkbox" class="new_word_markup competently" onclick="tick({{i.id}})" id="tick{{i.id}}">
-					</div>
-					<div class="function">
-						<i class="fa fa-edit" style="font-size:32px; margin-top: 11px;" onclick="updateVocabulary({{i.id}})"></i>
-					</div>
-					<div class="function">
-						<i class="fa fa-trash" style="font-size:32px; margin-top: 9px;" onclick="showPopupDelete({{i.id}})"></i>
+					<div class="col-sm-4 col-12 order-sm-2 order-1">
+						<div class="row">
+							<div class="col-sm-12 col-4">
+								
+							</div>
+							<div class="col-sm-3 col-2">
+								<img class="center" src="{% static 'image/Listent.png' %}" alt="" onclick="speak('{{i.id}}')" style="cursor: pointer;">
+							</div>
+							<div class="col-sm-3 col-2">
+								<input type="checkbox" class="new_word_markup not_yet_learned center" onclick="tick('{{i.id}}')" id="tick{{i.id}}">
+							</div>
+							<div class="col-sm-3 col-2">
+								<i class="fa fa-edit center" style="font-size:32px;" onclick="updateVocabulary('{{i.id}}')"></i>
+							</div>
+							<div class="col-sm-3 col-2 center">
+								<i class="fa fa-trash" style="font-size:32px;" onclick="showPopupDelete('{{i.id}}')"></i>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -554,5 +602,8 @@ function checkCompetently(){
 	}
 }
 </script>
+<div style="width: 100%; margin-top: 200px;">
+	{% include "footer.html" %}
+</div>
 </body>
 </html>

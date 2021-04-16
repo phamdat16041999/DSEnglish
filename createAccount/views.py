@@ -79,16 +79,6 @@ def insertAccount(request):
     userName = request.POST.getlist('userName')
     email = request.POST.getlist('email')
     password = request.POST.getlist('password')
-    # validate = 0
-    # int(validate)
-    # if(len(userName[0]) < 6 or len(password[0]) < 6):
-    #     validate = validate + 1
-    # if(re.match("^[a-zA-Z0-9_]*$", userName[0]) == None or re.match("^[a-zA-Z0-9_]*$", password[0]) == None):
-    #     validate = validate + 1
-    # if(validate > 0):
-    #     return render(request, 'errorAccount.html')
-    # # Kiểm tra xem tài khoản tồn tại hay chưa
-    # if(validate == 0):
     random_code = random_password(12)
     if len(User.objects.filter(username = userName[0])) == 0:
         User.objects.create_user(first_name = firstName[0], last_name = lastName[0],username = userName[0], email=email[0], password= password[0], is_active = False, code = random_code)
@@ -115,8 +105,6 @@ def insertAccount(request):
 def authenticEmail(request, id):
     code = request.POST.getlist('code')
     correctCode = User.objects.get(id = id).code
-    print(code[0])
-    print(correctCode)
     if(code[0] == correctCode):
         User.objects.filter(id = id).update(is_active = True)
         return redirect("/")

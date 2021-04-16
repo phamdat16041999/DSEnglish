@@ -21,3 +21,8 @@ class Vocabulary(models.Model):
 	Tick = models.BooleanField(default=False)
 	Mark = models.IntegerField(blank=True)
 	Date = models.DateTimeField(auto_now_add=True)
+class Dictionary(models.Model):
+	Term = models.CharField(max_length=100)
+class Definition(models.Model):
+	Dictionary = models.ForeignKey(Dictionary, default=None, on_delete=models.CASCADE)
+	Definition = models.CharField(max_length=100)

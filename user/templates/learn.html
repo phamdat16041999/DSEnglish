@@ -4,35 +4,50 @@
 	{% load static %}
 	<title></title>
 	<meta charset ="utf-8" />
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-	<!-- Popper JS -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-
+	<style>
+		.definitionLearn{
+			height: 70%;
+		}
+		.meansLearn{
+			height: 30%;
+		}
+		.choice{
+			margin-bottom: 10px;
+		}
+		@media only screen and (max-width: 600px) {
+			.definitionLearn{
+				height: 60%;
+			}
+			.meansLearn{
+				height: 40%;
+			}
+		}
+	</style>
 </head>
 <body>
-	<div class="container">
+	{% include "toolbarUser.html" %}
+	<div class="container" style="margin-top: 30px;">
 		<div class="row">
-			<div class="col-3">
-				<div class="row header_learn">
-					<div class="col-12">
+			<div class="col-sm-3 col-12">
+				<div class="row" style="text-align: center;">
+					<div class="col-sm-12 col-3">
+						
+					</div>
+					<div class="col-sm-12 col-3">
 						<span class="fa fa-book" style="font-size: 26px; color: #2980b9;"></span>
 					</div>
-					<div class="col-12">
+					<div class="col-sm-12 col-3">
 						Learn
+					</div>
+					<div class="col-sm-12 col-3">
+						
 					</div>
 				</div>
 			</div>
-			<div class="col-3">
+			<div class="col-sm-3 col-12">
 				<div class="row header_learn">
 					<div class="col-12" style="color: #2980b9; font-weight: bold;">
 						New words remaining
@@ -44,7 +59,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-3">
+			<div class="col-sm-3 col-12">
 				<div class="row header_learn" style="color: #e67e22; font-weight: bold;">
 					<div class="col-12">
 						Number of wrong answers
@@ -54,7 +69,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-3">
+			<div class="col-sm-3 col-12">
 				<div class="row header_learn" style="color: #2ecc71; font-weight: bold;">
 					<div class="col-12">
 						Number of correct answers
@@ -68,23 +83,23 @@
 	</div>
 	<div class="container" style="margin-top: 20px; border-top: 10px solid #3498db;" id="choice">
 		<div class="row" style="height: 500px; background-color: white">
-			<div class="col-12" style="height: 400px;">
+			<div class="col-12 definitionLearn">
 				<h3 id="newWord"></h3>
 			</div>
-			<div class="col-12" style="height: 100px;">
+			<div class="col-12 meansLearn">
 				<div class="row" style="text-align: center;">
-					<div class="col-3">
+					<div class="col-sm-3 col-12 choice">
 						<button type="" class="btn btn-light button_mean" onclick="check(this.innerHTML)"></button>
 					</div>
-					<div class="col-3">
-						<button type="" class="btn btn-light button_mean" onclick="check(this.innerHTML)"></button>
-					</div>
-
-					<div class="col-3">
+					<div class="col-sm-3 col-12 choice">
 						<button type="" class="btn btn-light button_mean" onclick="check(this.innerHTML)"></button>
 					</div>
 
-					<div class="col-3">
+					<div class="col-sm-3 col-12 choice">
+						<button type="" class="btn btn-light button_mean" onclick="check(this.innerHTML)"></button>
+					</div>
+
+					<div class="col-sm-3 col-12 choice">
 						<button type="" class="btn btn-light button_mean" onclick="check(this.innerHTML)"></button>
 					</div>
 				</div>
@@ -102,7 +117,7 @@
 						<input type="text" class="form-control" placeholder="Your answer" id="answerWrite">
 					</div>
 					<div class="col-2">
-						<button type="button" class="btn btn-primary" style="width: 100%" onclick="checkWrite()">Submit</button>
+						<i class="material-icons send" onclick="checkWrite()">send</i>
 					</div>
 				</div>
 			</div>
@@ -332,5 +347,8 @@ function subtractPoints(Term, CategoryID_id){
 
 }
 </script>
+<div style="width: 100%; margin-top: 200px;">
+	{% include "footer.html" %}
+</div>
 </body>
 </html>

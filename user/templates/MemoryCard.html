@@ -21,9 +21,10 @@
 </head>
 <body>
 	<!-- Header content -->
+    {% include "toolbarUser.html" %}
 	<div class="container-xl">
 		<div class="row">
-			<div id="header">
+			<div id="header" class="col-12">
 				<div class="title">Card flip game</div>
 				<div class="row">
 					<div class="col-3">
@@ -244,5 +245,8 @@ function resetGame() {
 }
 
 </script>
+<div style="width: 100%; margin-top: 200px;">
+    {% include "footer.html" %}
+</div>
 </body>
 </html>

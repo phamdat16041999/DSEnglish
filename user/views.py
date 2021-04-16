@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate
 from index.models import User as User_english
-from index.models import Category, Vocabulary
+from index.models import Category, Vocabulary, Dictionary, Definition
 from django.shortcuts import redirect
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.models import User
 import re
 from django.db import connection
+from django.http import HttpResponse
 def user(request):
 	if request.user.is_authenticated:
 		categoryContentExteition = {'categoryContentExteition': Category.objects.all().get(UserID = request.user.id, Name = "Google chrome extention"), 'categoryContent': Category.objects.filter(UserID = request.user.id, Is_Extention = False)}
@@ -30,6 +31,15 @@ def addVocabulary(request):
 		for x in range(len(term)):
 			if term != "" or definition != "":
 				Vocabulary.objects.create(CategoryID_id = Category.objects.latest('id').id, Term = term[x].strip(),Definition = definition[x].strip(), Mark = 0)
+				#Add Dictionary
+				dictionary = Dictionary.objects.filter(Term = term[x].strip())
+				if(len(dictionary) == 0):
+					Dictionary.objects.create(Term = term[x].strip())
+					Definition.objects.create(Definition = definition[x].strip(), Dictionary_id = Dictionary.objects.latest('id').id)
+				else:
+					definitionSmall = Definition.objects.filter(Definition = definition[x].strip(), Dictionary_id = dictionary[0].id)
+					if(len(definitionSmall) == 0):
+						Definition.objects.create(Definition = definition[x].strip(), Dictionary_id = dictionary[0].id)
 		return redirect('/login')
 	else:
 		return render(request, 'login.html')
@@ -45,8 +55,7 @@ def deleteCategory(request, id):
 		Category.objects.filter(UserID = request.user.id, id = id).delete()
 		selectCategory = Category.objects.filter(UserID = request.user.id, Is_Extention = False)
 		response = HttpResponse()
-		for x in range(len(selectCategory)):
-			response.writelines("<div class='col-12' id="+str(selectCategory[x].id)+"><div class='center'><p class="+"new_word"+"><a href="+"/chooseGame/"+ str(selectCategory[x].id) +">"+str(selectCategory[x].Name)+"</a></p><p class="+"mean"+">"+str(selectCategory[x].Description)+"</p><div class='function'></div><div class='function' style='float: right;'><i class='fa fa-edit' style='font-size:32px; margin-top: 11px;' onclick="+"showPopupEdit("+ str(selectCategory[x].id)+")""></i></div><div class='function' style='float: right;'><i class='fa fa-trash' style='font-size:32px; margin-top: 9px;' onclick="+"showPopup("+ str(selectCategory[x].id)+")""></i></div></div></div>")
+		response.writelines("Deleted successfully")
 		return response
 	else:
 		return render(request, 'login.html')

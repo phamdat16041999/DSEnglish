@@ -1,56 +1,207 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {% load static %}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
     <title></title>
     <meta charset ="utf-8" />
+    <style>
+        #slogan{
+            opacity: 0;
+            transition: opacity 3s;
+        }
+        #introduction{
+            opacity: 0;
+            transition: opacity 3s;
+        }
+        #promote{
+            opacity: 0;
+            transition: opacity 3s;
+        }
+        #document{
+            opacity: 0;
+            transition: opacity 3s;
+        }
+        #tutorial{
+            opacity: 0;
+            transition: opacity 3s;
+        }
+        #contact{
+            opacity: 0;
+            transition: opacity 3s;
+        }
+        .content
+        {
+           font-family: 'Lato', sans-serif;
+       }
+       .fontSize
+       {
+        font-size: 20px;
+    }
+    @media only screen and (max-width: 1000px) {
+        .fontSize
+        {
+            font-size: 24px;
+        }
+    }
+</style>
 </head>
 <body>
     {% include "toolbar.html" %}
- <div class="container-lg" style="margin-top: 15px;">
-    <div class="row">
-        <div class="col-lg-6 col-12" style="text-align:center">
-            <img src="https://image.winudf.com/v2/image/Y29tLnRyYWlsYXJhcHAuc3VjY2Vzc3BzeWNob2xvZ3lfaWNvbl8xNTM4NDg1MjE3XzA0Mg/icon.png?w=170&fakeurl=1" alt="Alternate Text" style="width:50%; height:auto" />
-        </div>
-        <div class="col-lg-6 col-12" style="margin-top:20px;">
-            <h4>Regularly study with us every day to be more successful in life</h4>
-            <p>Spend 30 minutes a day using DSEnglish as an entertaining game, we will study English with you every day.</p>
-            <a href="#">Starting now >>></a>
-        </div>
-    </div>
-    <hr style="width:100%; margin-top:40px; margin-bottom:40px;" />
-    <div class="row">
-        <div class="col-lg-6 col-12 order-xl-1 order-2">
-            <h4>Document</h4>
-            <p>Please read the documentation if you are a beginner to DSEnglish.</p>
-            <a href="#">Starting now >>></a>
-        </div>
-        <div class="col-lg-6 col-12 order-xl-2 order-1" style="text-align:center; margin-top:20px;">
-            <img src="https://cdn3.iconfinder.com/data/icons/esports-indigo-vol-2/256/Noob-512.png" alt="Alternate Text" style="width:50%; height:auto" />
-        </div>
-    </div>
-    <hr style="width:100%; margin-top:40px; margin-bottom:40px;" />
-    <div class="row">
-        <div class="col-lg-6 col-12" style="text-align:center">
-            <img src="https://www.iconbunny.com/icons/media/catalog/product/6/1/610.8-overview-icon-iconbunny.jpg" alt="Alternate Text" style="width:50%; height:auto" />
-        </div>
-        <div class="col-lg-6 col-12" style="margin-top:20px;">
-            <h4>DSEnglish overview</h4>
-            <p>Spend 30 minutes a day using DSEnglish as an entertaining game, we will study English with you every day.</p>
-            <a href="#">Starting now >>></a>
-        </div>
-    </div>
+    <div class="container-fluid">
+        <div class="row" style="background-color: #FFF1E0;" >
+            <div class="col-lg-4 col-12 content" id="slogan">
+                <div class="row">
+                    <div class="col-4">
 
-    <hr style="width:100%; margin-top:40px; margin-bottom:40px;" />
-    <div class="row">
-        <div class="col-lg-6 col-12 order-xl-1 order-2">
-            <h4>Contact</h4>
-            <p>Please read the documentation if you are a beginner to DSEnglish.</p>
-            <a href="#">Starting now >>></a>
+                    </div>
+                    <div class="col-8" style="margin-top: 100px; margin-bottom: 50px;">
+                        <h3 style="font-weight: bold;" class="content">Slogan</h3>
+                        <p class="fontSize">Description slogan</p>
+                        <button type="button" class="btn btn-primary">Starting now</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-12">
+                <img src="{% static 'image/Education Background.jpg' %}" alt="" style="width: 100%; height: auto; border-radius: 4px; margin-top: 20px; margin-bottom: 20px;">
+            </div>
         </div>
-        <div class="col-lg-6 col-12 order-xl-2 order-1" style="text-align:center; margin-top:20px;">
-            <img src="https://nuochoangoisao.com/wp-content/uploads/2019/10/Email.png" alt="Alternate Text" style="width:50%; height:auto" />
+        <div class="row" style="background-color: white;" id="introduction">
+            <div class="col-lg-4 col-12 content">
+                <div class="row" style="margin-top: 120px;">
+                    <div class="col-lg-4 col-12">
+
+                    </div>
+                    <div class="col-lg-6 col-12">
+                        <h3 style="font-weight: bold;" class="content">What Do I Teach?</h3>
+                        <p class="fontSize">I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. </p>
+                        <button type="button" class="btn btn-primary">About me</button>
+                    </div>
+                    <div class="col-lg-2 col-12">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-lg-6 col-12 content">
+                <div class="row" style="margin-top: 120px; margin-bottom: 50px;">
+                    <div class="col-lg-5 col-12" id="promote">
+                        <div style="width: 100%; text-align: center;background-color: #FFF1E0;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Circle-icons-clock.svg/1024px-Circle-icons-clock.svg.png" alt="Alternate Text" style="width:60%; height:auto; margin-top: 20%; margin-bottom: 20%;" />
+                        </div>
+                        <!-- <h4>Regularly study with us every day to be more successful in life</h4> -->
+                        <p class="fontSize">Spend 30 minutes a day using DSEnglish as an entertaining game, we will study English with you every day.</p>
+                    </div>
+                    <div class="col-lg-1 col-12">
+
+                    </div>
+                    <div class="col-lg-5 col-12" id="document">
+                        <div style="width: 100%; text-align: center;background-color: #DCDEF7;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Circle-icons-document.svg/1024px-Circle-icons-document.svg.png" alt="Alternate Text" style="width:60%; height:auto; margin-top: 20%; margin-bottom: 20%;" />
+                        </div>
+                        <p class="fontSize">Please read the documentation if you are a beginner to DSEnglish.</p>
+                    </div>
+                    <div class="col-lg-1 col-12">
+
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 50px; margin-bottom: 120px;" id="tutorial">
+                    <div class="col-lg-5 col-12">
+                        <div style="width: 100%; text-align: center;background-color: #EBEDFC;">
+                            <img src="https://image.flaticon.com/icons/png/512/422/422212.png" alt="Alternate Text" style="width:60%; height:auto; margin-top: 20%; margin-bottom: 20%;" />
+                        </div>
+                        <!-- <h4>Regularly study with us every day to be more successful in life</h4> -->
+                        <p class="fontSize">Spend 30 minutes a day using DSEnglish as an entertaining game, we will study English with you every day.</p>
+                    </div>
+                    <div class="col-lg-1 col-12">
+
+                    </div>
+                    <div class="col-lg-5 col-12" id="contact">
+                        <div style="width: 100%; text-align: center;background-color: #FFE0D6;">
+                            <img src="https://nuochoangoisao.com/wp-content/uploads/2019/10/Email.png" alt="Alternate Text" style="width:60%; height:auto; margin-top: 20%; margin-bottom: 20%;" />
+                        </div>
+                        <p class="fontSize">Please read the documentation if you are a beginner to DSEnglish.</p>
+                    </div>
+                    <div class="col-lg-1 col-12">
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+    {% include "footer.html" %}
 </body>
+<script>
+    setTimeout(show, 100);
+    function show()
+    {
+        document.getElementById("slogan").style.opacity = "1";
+    }
+    if(screen.width >= 800 && screen.width < 1920)
+    {
+        showIntroduction(show, 100);
+        showPromote(show, 100);
+        showDocument(show, 100);
+        showTutorial(show, 100);
+        showContact(show, 100);
+    }
+    window.onscroll = function() {myFunction()};
+    function myFunction() {
+        if(screen.width >= 1920)
+        {
+            if(document.documentElement.scrollTop > 100)
+            {
+                showIntroduction(show, 100);
+                showIntroduction(show, 100);
+                showPromote(show, 100);
+                showDocument(show, 100);
+                showTutorial(show, 100);
+                showContact(show, 100);
+            }
+        }
+        if(screen.width <= 1000)
+        {
+            if(document.documentElement.scrollTop > 300)
+            {
+                showIntroduction(show, 100);
+                showPromote(show, 100);
+            }
+            if(document.documentElement.scrollTop > 1000)
+            {
+                showDocument(show, 100);
+            }
+            if(document.documentElement.scrollTop > 2000)
+            {
+                showTutorial(show, 100);
+            }
+            if(document.documentElement.scrollTop > 2600)
+            {
+                showContact(show, 100);
+            }
+        }
+    }
+    function showIntroduction()
+    {
+        document.getElementById("introduction").style.opacity = "1";
+    }
+    function showPromote()
+    {
+        document.getElementById("promote").style.opacity = "1";
+    }
+    function showDocument()
+    {
+        document.getElementById("document").style.opacity = "1";
+    }
+    function showTutorial()
+    {
+        document.getElementById("tutorial").style.opacity = "1";
+    }
+    function showContact()
+    {
+        document.getElementById("contact").style.opacity = "1";
+    }
+</script>
 </html>

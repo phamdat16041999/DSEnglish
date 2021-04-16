@@ -2,16 +2,6 @@
 <html>
 <head>
   {% load static %}
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-  <!-- jQuery library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-  <!-- Popper JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-  <!-- Latest compiled JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <style>
 
     body {
@@ -48,14 +38,18 @@
     }
 
     .flip-card-front {
-      background-color: #bbb;
+      background-color: #FFFFFF;
       color: black;
+      align-items: center;
+      justify-content: center;
+      display: flex;
     }
 
     .flip-card-back {
       background-color: #2980b9;
       color: white;
       transform: rotateY(180deg);
+      align-items: center;justify-content: center;display: flex;
     }
     * {box-sizing: border-box}
     body {font-family: Verdana, sans-serif; margin:0}
@@ -140,27 +134,49 @@
     @media only screen and (max-width: 300px) {
       .prev, .next,.text {font-size: 11px}
     }
+    .count{
+      background-color: #FFFFFF; height: 500px;
+      margin-top: 100px;
+    }
+    .fullCard{
+      margin-top: 100px;
+    }
+    @media only screen and (max-width: 600px) {
+      .count{
+        height: 100px;
+      }
+      .fullCard{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        margin-top: 10px;
+      }
+      .flip-card
+      {
+        height: 250px;
+      }
+    }
   </style>
 </head>
 <body>
+  {% include "toolbarUser.html" %}
   <div class="container-xl">
     <div class="row">
-      <div class="col-2" style="background-color: #bdc3c7; height: 500px">
+      <div class="col-sm-2 col-12 count">
         <p>Progress</p>
-        <div class="progress" style="background-color: white;">
+        <div class="progress" style="background-color: #ecf0f1;">
           <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="2" aria-valuemax="" id="progress"></div>
         </div>
       </div>
-      <div class="col-10">
+      <div class="col-sm-10 col-12 fullCard">
         <div class="slideshow-container">
           {% for i in newWord %}
           <div class="mySlides fadea">
             <div class="flip-card">
               <div class="flip-card-inner">
-                <div class="flip-card-front" style="align-items: center;justify-content: center;display: flex;">
+                <div class="flip-card-front">
                   <h1>{{i.Term}}</h1>
                 </div>
-                <div class="flip-card-back" style="align-items: center;justify-content: center;display: flex;">
+                <div class="flip-card-back">
                   <h1>{{i.Definition}}</h1> 
                 </div>
               </div>
@@ -206,5 +222,8 @@
           slides[slideIndex-1].style.display = "block";  
         }
       </script>
+      <div style="width: 100%; margin-top: 200px;">
+        {% include "footer.html" %}
+      </div>
     </body>
     </html>

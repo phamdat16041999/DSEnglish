@@ -1,38 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
-	{% load static %}
 	<title></title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	{% load static %}
+	<style>
+		.logoToolbar{
+			width: 4%;
+		}
+		@media only screen and (max-width: 900px) {
+			.logoToolbar{
+				width: 15%;
+			}
+		}
+		.toolbarText{
+			color: white;
+			font-weight: bold;
+		}
+		.toolbarText:hover
+		{
+			color: #ecf0f1;
+		}
+		.material-icons {
+			font-family: 'Material Icons';
+			font-weight: normal;
+			font-style: normal;
+			font-size: 24px;
+			line-height: 1;
+			letter-spacing: normal;
+			text-transform: none;
+			display: inline-block;
+			white-space: nowrap;
+			word-wrap: normal;
+			direction: ltr;
+			-webkit-font-feature-settings: 'liga';
+			-webkit-font-smoothing: antialiased;
+		}
+		body{
+			background-color: #ecf0f1 !important;
+		}
+	</style>
 </head>
 <body>
-	<div class="container-xl" id="toolbar">
-		<div class="row">
-			<div class="col-1">
-				<img src="{% static 'image/logo1.jpg' %}" alt="" style="width: 100%; height: auto; border-radius: 5px;">
-			</div>
-			<div class="col-10">
-				<form class="form-inline" style="float: left;">
-					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-				</form>
-				<a class="navbar-brand" href="/user/createCategoryInterface" style="margin-top: 5px; margin-left: 20px; float: left;">Create <i class="material-icons" style="font-size:20px">library_add</i>
-				</a>
-			</div>
-			<div class="col-1">
-				<div class="btn-group">
-					<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-right: 10px;">
-						Action
-					</button>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">Action</a>
-						<a class="dropdown-item" href="#">Another action</a>
-						<a class="dropdown-item" href="#">Something else here</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="/login/logout">Log out</a>
+	<div class="container-fluid" style="background-color: #83B880;">
+		<div class="container">
+			<nav class="navbar navbar-expand-lg navbar-light">
+				<a class="navbar-brand logoToolbar" href="/login"><img src="{% static 'image/logo1.jpg' %}" alt="" style="width: 100%; height: auto; border-radius: 4px;"></a>
+				<a class="navbar-brand" href="/login" style="color: white; font-size: 26px;">DSEnglish</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+					<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+					</ul>
+					<div class="form-inline my-2 my-lg-0">
+						<a class="nav-link toolbarText" href="/user/createCategoryInterface">Create learning topics <i class="material-icons" style="font-size:20px">library_add</i></a>
+						<div class="dropdown">
+							<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<img src="https://image.shutterstock.com/image-vector/thin-line-user-icon-on-260nw-519039097.jpg" alt="..." class="rounded-circle" style="width: 40px; height: 40px;">
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<a class="dropdown-item" href="/ViewProfile">View profile</a>
+								<a class="dropdown-item" href="/ChangePasswordInterface">Change password</a>
+								<a class="dropdown-item" href="/login/logout">Logout</a>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
+			</nav>
 		</div>
 	</div>
 </body>

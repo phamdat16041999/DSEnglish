@@ -4,15 +4,12 @@
 	border-right: .125rem solid white; 
 	width: 100%; text-align: center;
 }
-body{
-	background-color: #ecf0f1;
-}
 .button_mean{
 	width: 80%;
-    border-radius: 5px;
-    height: 40px;
-    border-color: #ecf0f1;
-    background-color: #ecf0f1;
+	border-radius: 5px;
+	height: 40px;
+	border-color: #ecf0f1;
+	background-color: #ecf0f1;
 }
 /*Personal*/
 #description{
@@ -24,25 +21,19 @@ body{
 	font-weight: bold;
 	margin-top: 10px;
 }
-.center {
-	height: 50px;
+.center{
+	display: flex;
+	/*justify-content: center;*/
+	align-items: center;
 	line-height: 42px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.box_shadow{
 	background-color: white;
-	border-radius: 4px;
 	box-shadow: 0px 4px 10px #bdc3c7;
-}
-.new_word{
-	width: 20%;
-	float: left;
-	border-right: .125rem solid #ecf0f1; 
-	margin-top: 3px;
-	margin-left: 30px;
-}
-.mean{
-	margin-top: 3px;
-	width: 35%;
-	float: left;
-	margin-left: 30px;
+	border-radius: 4px;
+	margin-top: 20px;
 }
 .new_word_markup
 {
@@ -64,7 +55,7 @@ body{
 {
 	width: 100%; 
 	height: 50px; 
-	text-align: left; 
+	text-align: left !important; 
 	font-size: 16px;
 	background-color: #ecf0f1;
 	border-color: #ecf0f1;
@@ -73,4 +64,24 @@ body{
 {
 	background-color: white;
 	border-color: white;
+}
+@media only screen and (max-width: 600px) {
+	.header_learn
+	{
+		text-align: left;
+		margin-top: 5px;
+	}
+	.button_mean{
+		width: 100%;
+	}
+}
+.send
+{
+	font-size:36px !important; 
+	color: #3498db; 
+	cursor: pointer;
+}
+.send:hover
+{
+	color: #2980b9;
 }
