@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'DSEnglish.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'heroku_543328c39d80154',
-        'USER': 'bb95950d23e956',
-        'PASSWORD': '437bc923',
+        'NAME': 'heroku_2458eac40bf1976',
+        'USER': 'bd6ec64a018696',
+        'PASSWORD': '316b9108',
         'HOST': 'us-cdbr-east-03.cleardb.com',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
