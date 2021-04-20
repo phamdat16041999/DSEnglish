@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'dsenglish.urls'
+ROOT_URLCONF = 'DSEnglish.urls'
 
 TEMPLATES = [
     {
@@ -71,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'dsenglish.wsgi.application'
+WSGI_APPLICATION = 'DSEnglish.wsgi.application'
 
 
 # Database
@@ -80,10 +80,10 @@ WSGI_APPLICATION = 'dsenglish.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'dsenglish',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'NAME': 'heroku_543328c39d80154',
+        'USER': 'bb95950d23e956',
+        'PASSWORD': '437bc923',
+        'HOST': 'us-cdbr-east-03.cleardb.com',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
