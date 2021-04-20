@@ -31,3 +31,4 @@ class Contacts(models.Model):
 	LastName = models.CharField(max_length=100)
 	Email = models.CharField(max_length=100)
 	Messenger = models.TextField()
+	Read = models.BooleanField(default=False)
