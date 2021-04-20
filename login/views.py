@@ -32,6 +32,8 @@ def loginFunction(request):
 	            	# print(Category.objects.all().get(Name = "Google chrome extention").Is_Extention)
 	            	categoryContentExteition = {'categoryContentExteition': Category.objects.all().get(UserID = request.user.id, Name = "Google chrome extention"), 'categoryContent': Category.objects.filter(UserID = request.user.id, Is_Extention = False)}
 	            	return redirect('/login')
+	    else:
+	    	return render(request, 'login.html', {"error":"The account and password are incorrect"})
 	if request.user.is_authenticated:
 		categoryContentExteition = {'categoryContentExteition': Category.objects.all().get(UserID = request.user.id, Name = "Google chrome extention"), 'categoryContent': Category.objects.filter(UserID = request.user.id, Is_Extention = False)}
 		return redirect('/login')

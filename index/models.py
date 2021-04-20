@@ -26,3 +26,8 @@ class Dictionary(models.Model):
 class Definition(models.Model):
 	Dictionary = models.ForeignKey(Dictionary, default=None, on_delete=models.CASCADE)
 	Definition = models.CharField(max_length=100)
+class Contacts(models.Model):
+	FirstName = models.CharField(max_length=100)
+	LastName = models.CharField(max_length=100)
+	Email = models.CharField(max_length=100)
+	Messenger = models.TextField()
