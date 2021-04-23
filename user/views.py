@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate
 from index.models import User as User_english
-from index.models import Category, Vocabulary, Dictionary, Definition
+from index.models import Category, Vocabulary, Dictionary, Definition, group_new_word
 from django.shortcuts import redirect
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as django_logout
@@ -32,14 +32,30 @@ def addVocabulary(request):
 			if term != "" or definition != "":
 				Vocabulary.objects.create(CategoryID_id = Category.objects.latest('id').id, Term = term[x].strip(),Definition = definition[x].strip(), Mark = 0)
 				#Add Dictionary
-				dictionary = Dictionary.objects.filter(Term = term[x].strip())
-				if(len(dictionary) == 0):
+				dictionarydb = Dictionary.objects.filter(Term = term[x].strip())
+				definitiondb = Definition.objects.filter(Definition = definition[x].strip())
+				if(len(dictionarydb) == 0):
 					Dictionary.objects.create(Term = term[x].strip())
-					Definition.objects.create(Definition = definition[x].strip(), Dictionary_id = Dictionary.objects.latest('id').id)
-				else:
-					definitionSmall = Definition.objects.filter(Definition = definition[x].strip(), Dictionary_id = dictionary[0].id)
-					if(len(definitionSmall) == 0):
-						Definition.objects.create(Definition = definition[x].strip(), Dictionary_id = dictionary[0].id)
+					dictionaryId = Dictionary.objects.latest('id').id
+				if(len(dictionarydb) != 0):
+					dictionaryId = Dictionary.objects.filter(Term = term[x].strip())[0].id
+
+				if(len(definitiondb) == 0):
+					Definition.objects.create(Definition = definition[x].strip())
+					definitionId = Definition.objects.latest('id').id
+				if(len(definitiondb) != 0):
+					definitionId = Definition.objects.filter(Definition = definition[x].strip())[0].id
+
+				group = group_new_word.objects.filter(Definition_id  = definitionId, Dictionary_id = dictionaryId)
+				if(len(group) == 0):
+					group_new_word.objects.create(Definition_id  = definitionId, Dictionary_id = dictionaryId)
+				# if(len(dictionary) == 0):
+				# 	Dictionary.objects.create(Term = term[x].strip())
+				# 	Definition.objects.create(Definition = definition[x].strip(), Dictionary_id = Dictionary.objects.latest('id').id)
+				# else:
+				# 	definitionSmall = Definition.objects.filter(Definition = definition[x].strip(), Dictionary_id = dictionary[0].id)
+				# 	if(len(definitionSmall) == 0):
+				# 		Definition.objects.create(Definition = definition[x].strip(), Dictionary_id = dictionary[0].id)
 		return redirect('/login')
 	else:
 		return render(request, 'login.html')

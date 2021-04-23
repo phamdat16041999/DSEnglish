@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<title></title>
+	<style>
+		body
+		{
+			background-color: #FFF1E0;
+		}
+		.content{
+			text-indent: 60px;
+		}
+	</style>
+</head>
+<body>
+	{% include "toolbar.html" %}
+	<div class="container" style="margin-top: 20px;">
+		<div class="row">
+			<div class="col-12" style="text-align: center;">
+				<h4>DSEnglish</h4>
+				<p>Word translation web application, fast and effective English vocabulary learning</p>
+			</div>
+			<div class="col-sm-8 col-12">
+				<h4>The birth of DSEnglish</h4>
+				<p class="content">According to Mahu, D.P., (2012), the English language has been popular all over the world since decades ago. And today, many other countries take English as the standard. Currently, about 45 countries see English as the official language, and a lot of other countries also use English. The reason the English language is so popular is because its benefits go beyond one's own scope and transcend the country.</p>
+				<p class="content">Nowadays, many countries are using English, and our country Vietnam too. Therefore, finding an effective method of learning English is also very important for each individual.</p>
+			</div>
+			<div class="col-sm-4 col-12">
+				<img src="{% static 'image/logo1.jpg' %}" alt="" style="width: 100%; height: auto; border-radius: 10px; ">
+			</div>
+			<div class="col-12">
+				<p class="content">According to Bakar, N.A. and Nosratirad, E., (2013), today there are many methods that help us to approach the languages of the world and learn them effectively. However, with the strong development of technology, the use of computers as a learning tool has influenced and changed a lot in the language learning method. And the use of computer games to improve language learning is very effective and is growing very strongly over the years. For example quizlet apps, duolingo….</p>
+				<p class="content">I used to learn English on quizlet apps, duolingo…. And feel they are very effective for me in learning a language. However, in my opinion, in order to add new words to the application, we need to go through a lot of stages such as: using google translate to translate new words, copy new words, meaning of words, pronunciation ... into the application to learn English.</p>
+				<p class="content">To learn English effectively and save time to learn English. We want to develop an app that helps users shorten the steps of adding new words, and learn them as fun games. And the application will be named "DSEnglist".</p>
+				<h4>DSEnglish's Purpose</h4>
+				<p class="content">The project was developed with the aim of developing a tool to help users learn English vocabulary more effectively, shortening the time when they randomly add new words through the websites they are reading. Users can add new words through two methods:</p>
+				<p class="content">Method one: Add new words through the topics that the user has prepared, this is similar to the previous software.</p>
+				<p class="content">Method two: Here we have an improvement over the previous software, users can quickly translate English words on the website through 1 click, users can add the meaning of words. and add to your database. All are done through 1 Chrome Extension. This will help users to shorten the steps compared to the existing software</p>
+				<p class="content">After adding the words successfully, users can learn the newly added words through fun games.</p>
+				<h4>Scope of DSEnglish</h4>
+				<p class="content">According to Bakar, N.A. and Nosratirad, E., (2013), the use of computer games to improve language learning is very effective and is growing very strongly over the years. So we want to develop a web application that helps users learn English through computer games</p>
+				<p class="content">The application includes a Chrome Extension to help users add words quickly and a website to help users learn vocabulary.</p>
+				<p class="content">Requirements from users: To use the application, all users need to install and use the browser google chrome, Coccoc, with internet connection</p>
+				<p class="content">User Subjects: According to Gawi, E.M.K., (2012), the learning outcomes of English language learners aged 5-6 are higher than any other age. And the age from 5-6 is also the most suitable age to learn English. Hence our app is developed for everyone aged 6 years and over.</p>
+				<p class="content">Supported devices: Computer, smart phone. However, Chrome Extension does not support smart phones, users cannot catch and translate words quickly and there users can only learn vocabulary through the genres they have built in.</p>
+				<p class="content">Platforms for use: The application can work on most popular operating systems today such as Windows 10 / 8.1 / 8/7 64 bit, Windows 10 / 8.1 / 8/7 32 bit, Mac OS, Linux, Windows 10 / 8.1 / 8/7 64 bit, Windows 10 / 8.1 / 8/7 32 bit, Mac OS X 10.10 or higher, Linux, Android, IOS.</p>
+				<p class="content">Project development scope: Initially, our project development scope will focus in Vietnam. The reason I choose the scope of the project in Vietnam is because our pilot project is still very limited in terms of finance and human resources. Our next reason is that I currently live in Vietnam, where we easily develop the project, and is convenient for analysis and research.</p>
+				<p class="content">The application only supports web pages on HTML platform, does not support PDF, Word, and PowerPoint files.</p>
+				<h4>Bibliography</h4>
+				<p class="content">Google. (2020). support.google.com. Retrieved from Minimum system requirements to cast from Chrome: https://support.google.com/chromecast/answer/3209990?hl=en</p>
+				<p class="content">Mahu, D.P., 2012. Why Is Learning English So Beneficial Nowadays?. International Journal of Communication Research, 2(4), p.374.</p>
+				<p class="content">Bakar, N.A. and Nosratirad, E., 2013. Sustaining vocabulary acquisition through computer game: A case study. Asian Social Science, 9(5), p.236.</p>
+				<p class="content">Gawi, E.M.K., 2012. The Effects of Age Factor on Learning English: A Case Study of Learning English in Saudi Schools, Saudi Arabia. English Language Teaching, 5(1), pp.127-139.</p>
+			</div>
+		</div>
+	</div>
+	{% include "footer.html" %}
+</body>
+</html>

@@ -24,11 +24,13 @@ class Vocabulary(models.Model):
 class Dictionary(models.Model):
 	Term = models.CharField(max_length=100)
 class Definition(models.Model):
-	Dictionary = models.ForeignKey(Dictionary, default=None, on_delete=models.CASCADE)
 	Definition = models.CharField(max_length=100)
+class group_new_word(models.Model):
+	Dictionary = models.ForeignKey(Dictionary, default=None, on_delete=models.CASCADE)
+	Definition = models.ForeignKey(Definition, default=None, on_delete=models.CASCADE)
 class Contacts(models.Model):
 	FirstName = models.CharField(max_length=100)
 	LastName = models.CharField(max_length=100)
-	Email = models.CharField(max_length=100)
+	Email = models.CharField(max_length=100, unique=True)
 	Messenger = models.TextField()
 	Read = models.BooleanField(default=False)
