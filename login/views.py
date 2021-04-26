@@ -116,7 +116,7 @@ def checkEmail(request):
 		service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
 		emailMsg = "Please click on this link to change your password:" + "http://localhost:8000/login/changePasswordInterface/" + str(checkEmail[0].id) + "/" + random_code
 		mimeMessage = MIMEMultipart()
-		mimeMessage["to"] = email    #datptgch17575@fpt.edu.vn
+		mimeMessage["to"] = email
 		mimeMessage["subject"] = "Change password"
 		mimeMessage.attach(MIMEText(emailMsg, 'plain'))
 		raw_string = base64.urlsafe_b64encode(mimeMessage.as_bytes()).decode()
