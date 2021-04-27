@@ -3,22 +3,10 @@
 <head>
 	{% load static %}
 	<title></title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-	<!-- Popper JS -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <style>
 	body{
-		background-color: #ecf0f1;
+		background-color: #FFF1E0;
 	}
 	@media only screen and (max-width: 1200px) {
 		#logo{
@@ -48,6 +36,7 @@
 	}
 </style>
 <body>
+	{% include "toolbar.html" %}
 	<div class="container-xl" id="createAccount">
 		<form method="POST" accept-charset="utf-8" id="ActionCreateAccount" action="/">
 			{% csrf_token %}
@@ -143,15 +132,6 @@
 			}
 			validate();
 		});
-/*		$("#signUp").click(function(){
-			var firstName = $('#firstName').val();
-			var lastName =  $('#lastName').val();
-			var userName =  $('#userName').val();
-			var email =  $('#email').val();
-			var password =  $('#password').val();
-
-			location.replace("insertAccount/"+ firstName + "/"+ lastName +"/"+userName+"/"+email+"/"+password+"");
-		});*/
 		function validate()
 		{
 			var error = 0;
