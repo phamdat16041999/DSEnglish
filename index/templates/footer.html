@@ -6,28 +6,60 @@
 				<h3>Let's Get Started</h3>
 			</div>
 			<div class="col-xl-6 col-12" style="margin-top: 40px; margin-bottom: 40px;">
-				<form class="row" action="#" method="POST">
+				<div class="row">
 					<div class="form-group col-6">
 						<label for="exampleInputEmail1">First name</label>
-						<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+						<input type="text" class="form-control" id="firstName" required>
 					</div>
 					<div class="form-group col-6">
 						<label for="exampleInputEmail1">Last name</label>
-						<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+						<input type="text" class="form-control" id="lastName" required>
 					</div>
 					<div class="form-group col-12">
 						<label for="exampleInputEmail1">Email address</label>
-						<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+						<input type="email" class="form-control" id="email" required>
 					</div>
 					<div class="form-group col-12">
-						<label for="exampleInputEmail1">Message</label>
-						<textarea name="" class="form-control" required></textarea>
+						<label for="exampleInputEmail1">Messenger</label>
+						<textarea id="messenger" class="form-control" required></textarea>
+					</div>
+					<div class="col-12">
+						<p style="color: red; display: none;" id="validate">You need to enter full information</p>
 					</div>
 					<div class="col-12" style="text-align: center;">
-						<button type="submit" class="btn btn-primary">Submit</button>
+						<button type="button" class="btn btn-primary" onclick="contacts()">Submit</button>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<script>
+	function contacts()
+	{
+		if($("#firstName").val() == 0 || $("#lastName").val() == 0 || $("#email").val() == 0 || $("#messenger").val() == 0)
+		{
+			$("#validate").show();
+		}
+		else
+		{
+			$("#validate").hide();
+			firstName = $("#firstName").val();
+			lastName = $("#lastName").val();
+			email = $("#email").val();
+			messenger = $("#messenger").val();
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					if(this.responseText == "Success")
+					{
+						alert("Thank you for your contribution to DSEnglish to further development");
+					}
+				}
+			};
+			xhttp.open("GET", "/contacts/"+firstName+ "/" + lastName + "/" + email + "/" + messenger , true);
+			xhttp.send();
+
+		}
+	}
+</script>

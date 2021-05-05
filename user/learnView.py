@@ -12,32 +12,57 @@ from django.db import connection
 
 def learn(request, id):
 	if request.user.is_authenticated:
-		newWord = {'newWord': Vocabulary.objects.filter(CategoryID_id=id), 'CategoryID_id' : id}
-		return render(request, 'learn.html', newWord)
+		tick = Vocabulary.objects.filter(CategoryID_id=id, Tick = True)
+		if(len(tick) == 0):
+			newWord = {'newWord': Vocabulary.objects.filter(CategoryID_id=id), 'CategoryID_id' : id}
+			return render(request, 'learn.html', newWord)
+		else:
+			newWord = {'newWord': tick, 'CategoryID_id' : id}
+			return render(request, 'learn.html', newWord)
 	else:
 		return render(request, 'login.html')
 def write(request, id):
 	if request.user.is_authenticated:
-		newWord = {'newWord': Vocabulary.objects.filter(CategoryID_id=id), 'CategoryID_id' : id}
-		return render(request, 'write.html', newWord)
+		tick = Vocabulary.objects.filter(CategoryID_id=id, Tick = True)
+		if(len(tick) == 0):
+			newWord = {'newWord': Vocabulary.objects.filter(CategoryID_id=id), 'CategoryID_id' : id}
+			return render(request, 'write.html', newWord)
+		else:
+			newWord = {'newWord': tick, 'CategoryID_id' : id}
+			return render(request, 'write.html', newWord)			
 	else:
 		return render(request, 'login.html')
 def speak(request, id):
 	if request.user.is_authenticated:
-		newWord = {'newWord': Vocabulary.objects.filter(CategoryID_id=id), 'CategoryID_id' : id}
-		return render(request, 'speak.html', newWord)
+		tick = Vocabulary.objects.filter(CategoryID_id=id, Tick = True)
+		if(len(tick) == 0):
+			newWord = {'newWord': Vocabulary.objects.filter(CategoryID_id=id), 'CategoryID_id' : id}
+			return render(request, 'speak.html', newWord)
+		else:
+			newWord = {'newWord': tick, 'CategoryID_id' : id}
+			return render(request, 'speak.html', newWord)
 	else:
 		return render(request, 'login.html')
 def flipCard(request, id):
 	if request.user.is_authenticated:
-		newWord = {'newWord': Vocabulary.objects.filter(CategoryID_id=id), 'CategoryID_id' : id}
-		return render(request, 'flip card.html', newWord)
+		tick = Vocabulary.objects.filter(CategoryID_id=id, Tick = True)
+		if(len(tick) == 0):
+			newWord = {'newWord': Vocabulary.objects.filter(CategoryID_id=id), 'CategoryID_id' : id}
+			return render(request, 'flip card.html', newWord)
+		else:
+			newWord = {'newWord': tick, 'CategoryID_id' : id}
+			return render(request, 'flip card.html', newWord)			
 	else:
 		return render(request, 'login.html')
 def memoryCard(request, id):
 	if request.user.is_authenticated:
-		newWord = {'newWord': Vocabulary.objects.filter(CategoryID_id=id), 'CategoryID_id' : id}
-		return render(request, 'MemoryCard.html', newWord)
+		tick = Vocabulary.objects.filter(CategoryID_id=id, Tick = True)
+		if(len(tick) == 0):
+			newWord = {'newWord': Vocabulary.objects.filter(CategoryID_id=id), 'CategoryID_id' : id}
+			return render(request, 'MemoryCard.html', newWord)
+		else:
+			newWord = {'newWord': tick, 'CategoryID_id' : id}
+			return render(request, 'MemoryCard.html', newWord)			
 	else:
 		return render(request, 'login.html')
 def plusPoints(request, Term, CategoryID_id):
