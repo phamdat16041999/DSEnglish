@@ -123,3 +123,49 @@ def deleteVocabulary(request, id):
 		return render(request, 'indexUser.html')
 	else:
 		return render(request, 'login.html')
+def updateInCategory(request, id):
+	if request.user.is_authenticated:
+		newWord = {'newWord': Vocabulary.objects.filter(CategoryID_id=id), 'Category':Category.objects.get(id=id)}
+		return render(request, 'updateCategory.html', newWord)
+	else:
+		return render(request, 'login.html')
+def addNewWord(request):
+	if request.user.is_authenticated:
+		title = request.POST.get('title','')
+		description = request.POST.get('description','')
+		term = request.POST.getlist('term[]','')
+		idCategory = request.POST.get('idCategory','')
+		definition = request.POST.getlist('definition[]','')
+		# Câu hỏi nếu trong quá trình tạo có 1 quá trình khác xen vào thì the last id có bị thay đổi theo hay không?
+		Vocabulary.objects.all().delete()
+		for x in range(len(term)):
+			if term != "" or definition != "":
+				Vocabulary.objects.create(CategoryID_id = int(idCategory), Term = term[x].strip(),Definition = definition[x].strip(), Mark = 0)
+				#Add Dictionary
+				dictionarydb = Dictionary.objects.filter(Term = term[x].strip())
+				definitiondb = Definition.objects.filter(Definition = definition[x].strip())
+				if(len(dictionarydb) == 0):
+					Dictionary.objects.create(Term = term[x].strip())
+					dictionaryId = Dictionary.objects.latest('id').id
+				if(len(dictionarydb) != 0):
+					dictionaryId = Dictionary.objects.filter(Term = term[x].strip())[0].id
+
+				if(len(definitiondb) == 0):
+					Definition.objects.create(Definition = definition[x].strip())
+					definitionId = Definition.objects.latest('id').id
+				if(len(definitiondb) != 0):
+					definitionId = Definition.objects.filter(Definition = definition[x].strip())[0].id
+
+				group = group_new_word.objects.filter(Definition_id  = definitionId, Dictionary_id = dictionaryId)
+				if(len(group) == 0):
+					group_new_word.objects.create(Definition_id  = definitionId, Dictionary_id = dictionaryId)
+				# if(len(dictionary) == 0):
+				# 	Dictionary.objects.create(Term = term[x].strip())
+				# 	Definition.objects.create(Definition = definition[x].strip(), Dictionary_id = Dictionary.objects.latest('id').id)
+				# else:
+				# 	definitionSmall = Definition.objects.filter(Definition = definition[x].strip(), Dictionary_id = dictionary[0].id)
+				# 	if(len(definitionSmall) == 0):
+				# 		Definition.objects.create(Definition = definition[x].strip(), Dictionary_id = dictionary[0].id)
+		return redirect('/login')
+	else:
+		return render(request, 'login.html')

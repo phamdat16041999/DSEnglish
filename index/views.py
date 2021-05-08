@@ -7,6 +7,8 @@ def Overview(request):
 	return render(request, 'Overview.html')
 def notFound404(request):
 	return render(request, 'notFound404.html')
+def Document(request):
+	return render(request, 'Document.html')
 def contacts(request, firstName, lastName, email, messenger):
 	Contacts.objects.create(FirstName = firstName, LastName = lastName, Email = email, Messenger = messenger)
 	response = HttpResponse()

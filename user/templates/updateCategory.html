@@ -49,8 +49,9 @@
 </head>
 <body>
 	{% include "toolbarUser.html" %}
-	<form action="/user/addVocabulary" method="POST" accept-charset="utf-8">
+	<form action="/user/addNewWord" method="POST" accept-charset="utf-8">
 		{% csrf_token %}
+		<input type="text" name="idCategory" value="{{Category.id}}" style="display: none;">
 		<div id="background_create">
 			<div class="container-xl">
 				<div class="row">
@@ -59,7 +60,7 @@
 					</div>
 					<div class="col-4">
 						<div class="row" style="float: right;">
-							<button type="submit" class="btn btn-primary" style="margin-right: 10px;">Create</button>
+							<button type="submit" class="btn btn-primary" style="margin-right: 10px;">Add newword</button>
 						</div>
 					</div>
 				</div>
@@ -70,9 +71,9 @@
 				<div class="col-12 col-lg-6" style="margin-top: 100px;">
 					<div class="form-group">
 						<label>Title</label>
-						<input type="text" class="form-control" id="title" placeholder="Enter a title" name="title" required>
+						<input type="text" class="form-control" id="title" value="{{Category.Name}}" name="title" required>
 						<label>Description</label>
-						<input type="text" class="form-control" id="title" placeholder="Enter a description" name="description" required>
+						<input type="text" class="form-control" id="title" value="{{Category.Description}}" name="description" required>
 					</div>
 				</div>
 				<div class="col-12 col-lg-6">
@@ -85,6 +86,24 @@
 
 				<div class="col-12">
 					<div class="row" id="addCard">
+						{% for i in newWord %}
+						<div class="col-12 card" id="OldNewWord{{i.id}}">
+							<div class="row" style="margin-bottom: 40px;">
+								<div class="col-12" style="height: 30px;">
+									<h5 class="numerical_order"></h5>
+									<i class="material-icons" onclick="deleteNewWord(this.id)" id="{{i.id}}" style="font-size: 32px;">delete_forever</i>
+								</div>
+								<div class="col-6">
+									<label>Terms</label>
+									<input type="text" class="form-control" id="title" placeholder="Enter a term" class="term" name="term[]" required value="{{i.Term}}">
+								</div>
+								<div class="col-6">
+									<label>Define</label>
+									<input type="text" class="form-control" id="title" placeholder="Enter the definition" class="definition" name="definition[]" required value="{{i.Definition}}">
+								</div>
+							</div>
+						</div>
+						{% endfor %}
 						<div class="col-12 card" id="card1">
 							<div class="row" style="margin-bottom: 40px;">
 								<div class="col-12" style="height: 30px;">
@@ -189,6 +208,21 @@
 			else
 			{
 				$("#card"+id).remove();
+				/*Đổi số thứ tự*/
+				for(var i = 0; i < $('.numerical_order').length; i++)
+				{
+					$('.numerical_order')[i].innerHTML = i + 1;
+				}
+			}
+		}
+		function deleteNewWord(id){
+			if($('.card').length <= 4)
+			{
+				alert("Number of terms must not be less than 4");
+			}
+			else
+			{
+				$("#OldNewWord"+id).remove();
 				/*Đổi số thứ tự*/
 				for(var i = 0; i < $('.numerical_order').length; i++)
 				{

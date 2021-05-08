@@ -12,6 +12,7 @@ urlpatterns = [
     path('/tickNewWord/<int:id>/', views.tickNewWord),
     path('/updateVocabulary/<int:id>/<str:Term>/<str:Definition>/', views.updateVocabulary),
     path('/deleteVocabulary/<int:id>/', views.deleteVocabulary),
+    path('/updateInCategory/<int:id>/', views.updateInCategory),
     # learnView
 	path('/learn/<int:id>/', learnView.learn),
 	path('/write/<int:id>/', learnView.write),
@@ -21,4 +22,5 @@ urlpatterns = [
 	path('/plusPoints/<str:Term>/<str:CategoryID_id>/', learnView.plusPoints),
 	path('/subtractPoints/<str:Term>/<str:CategoryID_id>/', learnView.subtractPoints),
     path('/addVocabularyExtention/<str:term>/<str:definition>/', views.addVocabularyExtention),
+    path('/addNewWord', views.addNewWord),
 ]
