@@ -77,26 +77,26 @@ WSGI_APPLICATION = 'DSEnglish.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql', 
-#         'NAME': 'heroku_2458eac40bf1976',
-#         'USER': 'bd6ec64a018696',
-#         'PASSWORD': '316b9108',
-#         'HOST': 'us-cdbr-east-03.cleardb.com',   # Or an IP Address that your DB is hosted on
-#         'PORT': '3306',
-#     }
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'dsenglish',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'NAME': 'heroku_2458eac40bf1976',
+        'USER': 'bd6ec64a018696',
+        'PASSWORD': '316b9108',
+        'HOST': 'us-cdbr-east-03.cleardb.com',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql', 
+#         'NAME': 'dsenglish',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+#         'PORT': '3306',
+#     }
+# }
 
 
 # Password validation
